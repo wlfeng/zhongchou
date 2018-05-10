@@ -12,3 +12,14 @@ class BannerModels(ProjectListModels):
 
     def __str__(self):
         return self.title
+
+
+class TitleIconModel(ProjectListModels):
+    icon_image = models.ImageField(upload_to="icon/%Y/%m", verbose_name="icon", max_length=100)
+
+    class Meta:
+        db_table = 'icon'
+        verbose_name_plural = verbose_name = '展示icon'
+
+    def __str__(self):
+        return self.title

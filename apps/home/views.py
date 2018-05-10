@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import View
 
 from apps.project.models import ProjectListModels
+from .models import BannerModels, TitleIconModel
 
 
 class IndexView(View):
@@ -11,6 +12,8 @@ class IndexView(View):
         property_sj = property.filter(type='sj')[:4]
         property_ny = property.filter(type='ny')[:4]
         property_qt = property.all()[:4]
+        banner = BannerModels.objects.all()
+        title_icon = TitleIconModel.objects.all()[:3]
         return render(request, 'home/index.html',
                       {'property_kj': property_kj, 'property_sj': property_sj, 'property_ny': property_ny,
-                       'property_qt': property_qt})
+                       'property_qt': property_qt, 'banner': banner, 'title_icon': title_icon})

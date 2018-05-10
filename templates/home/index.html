@@ -197,6 +197,19 @@
             text-decoration: none;
         }
 
+        #banner {
+            width: 100%;
+            height: 420px;
+        }
+
+        .title_image {
+            width: 33.33333%;
+            align-content: center;
+        }
+
+        .row {
+            margin-top: 20px;
+        }
     </style>
 {% endblock %}
 {% block body %}
@@ -206,21 +219,33 @@
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
         <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
+            {% for banner in banner %}
+                {% ifequal forloop.counter 1 %}
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                {% endifequal %}
+                {% ifnotequal  forloop.counter 1 %}
+                    <li data-target="#myCarousel" data-slide-to="{{ forloop.counter|add:-1 }}"></li>
+                {% endifnotequal %}
+            {% endfor %}
+
         </ol>
         <div class="carousel-inner" role="listbox">
-            <div class="item active" onclick="window.location.href='../project/project.html'"
-                 style="cursor:pointer;">
-                <img src="../../static/img/carousel-1.jpg" alt="First slide">
-            </div>
-            <div class="item" onclick="window.location.href='../project/project.html'" style="cursor:pointer;">
-                <img src="../../static/img/carousel-2.jpg" alt="Second slide">
-            </div>
-            <div class="item" onclick="window.location.href='../project/project.html'" style="cursor:pointer;">
-                <img src="../../static/img/carousel-3.jpg" alt="Third slide">
-            </div>
+
+
+            {% for banner in banner %}
+                {% if forloop.counter == 1 %}
+                    <div id="banner" class="item active" onclick="window.location.href='project.html'"
+                         style="cursor:pointer;">
+                        <img src="{{ MEDIA_URL }}{{ banner.banner_image }}">
+                    </div>
+                {% endif %}
+                {% ifnotequal  forloop.counter 1 %}
+                    <div id="banner" class="item" onclick="window.location.href='project.html'" style="cursor:pointer;">
+                        <img src="{{ MEDIA_URL }}{{ banner.banner_image }}">
+                    </div>
+                {% endifnotequal %}
+            {% endfor %}
+
         </div>
         <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
             <span class="glyphicon glyphicon-chevron-left"></span>
@@ -241,27 +266,17 @@
 
         <!-- Three columns of text below the carousel -->
         <div class="row">
-            <div class="col-lg-4" style="margin: auto">
-                <img class="img-circle" src="../../static/img/p1.jpg" alt="Generic placeholder image"
-                     style="width: 140px; height: 140px;">
-                <h2>智能高清监控机器人</h2>
-                <p>可爱的造型，摄像安防远程互联的全能设计，让你随时随地守护您的家人，陪伴你的生活。</p>
-                <p><a class="btn btn-default" href="../project/project.html" role="button">项目详情 &raquo;</a></p>
-            </div><!-- /.col-lg-4 -->
-            <div class="col-lg-4">
-                <img class="img-circle" src="../../static/img/p2.jpg" alt="Generic placeholder image"
-                     style="width: 140px; height: 140px;">
-                <h2>NEOKA智能手环</h2>
-                <p>要运动更要安全，这款、名为“蝶舞”的NEOKA-V9100智能运动手环为“安全运动而生”。</p>
-                <p><a class="btn btn-default" href="../project/project.html" role="button">项目详情 &raquo;</a></p>
-            </div><!-- /.col-lg-4 -->
-            <div class="col-lg-4">
-                <img class="img-circle" src="../../static/img/p3.png" alt="Generic placeholder image"
-                     style="width: 140px; height: 140px;">
-                <h2>驱蚊扣</h2>
-                <p>随处使用的驱蚊纽扣，<br>解决夏季蚊虫问题。</p>
-                <p><a class="btn btn-default" href="../project/project.html" role="button">项目详情 &raquo;</a></p>
-            </div><!-- /.col-lg-4 -->
+            {% for title_icon in title_icon %}
+
+                <div class="col-lg-4" style="text-align: center">
+                    <img class="img-circle" src="{{ MEDIA_URL }}{{ title_icon.icon_image }}"
+                         alt="Generic placeholder image"
+                         style="width: 140px; height: 140px;">
+                    <h2>{{ title_icon.title }}</h2>
+                    <p>{{ title_icon.introduce }}</p>
+                    <p> <a class="btn btn-default" href="../project/project.html" role="button">项目详情 &raquo;</a></p>
+                </div><!-- /.col-lg-4 -->
+            {% endfor %}
         </div><!-- /.row -->
 
         <div class="container">
