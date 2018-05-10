@@ -234,13 +234,16 @@
 
             {% for banner in banner %}
                 {% if forloop.counter == 1 %}
-                    <div id="banner" class="item active" onclick="window.location.href='project.html'"
+                    <div id="banner" class="item active"
+                         onclick="window.location.href='{% url 'project:projects_detail' id=banner.projectlistmodels_ptr_id %}'"
                          style="cursor:pointer;">
                         <img src="{{ MEDIA_URL }}{{ banner.banner_image }}">
                     </div>
                 {% endif %}
                 {% ifnotequal  forloop.counter 1 %}
-                    <div id="banner" class="item" onclick="window.location.href='project.html'" style="cursor:pointer;">
+                    <div id="banner" class="item"
+                         onclick="window.location.href='{% url 'project:projects_detail' id=banner.projectlistmodels_ptr_id %}'"
+                         style="cursor:pointer;">
                         <img src="{{ MEDIA_URL }}{{ banner.banner_image }}">
                     </div>
                 {% endifnotequal %}
@@ -274,7 +277,9 @@
                          style="width: 140px; height: 140px;">
                     <h2>{{ title_icon.title }}</h2>
                     <p>{{ title_icon.introduce }}</p>
-                    <p> <a class="btn btn-default" href="../project/project.html" role="button">项目详情 &raquo;</a></p>
+                    <p><a class="btn btn-default"
+                          href="{% url 'project:projects_detail' id=title_icon.projectlistmodels_ptr_id %}"
+                          role="button">项目详情 &raquo;</a></p>
                 </div><!-- /.col-lg-4 -->
             {% endfor %}
         </div><!-- /.row -->
@@ -300,7 +305,7 @@
                                             <img alt="300x200" src="{{ MEDIA_URL }}{{ pro.image }}"/>
                                             <div class="caption">
                                                 <h3 class="break">
-                                                    <a href="project.html">{{ pro.title }}</a>
+                                                    <a href="{% url 'project:projects_detail' id=pro.id %}">{{ pro.title }}</a>
                                                 </h3>
                                                 <p>
                                                 <div style="float:left;"><i class="glyphicon glyphicon-screenshot"
@@ -359,7 +364,7 @@
                                             <img alt="300x200" src="{{ MEDIA_URL }}{{ pro.image }}"/>
                                             <div class="caption">
                                                 <h3 class="break">
-                                                    <a href="project.html">{{ pro.title }}</a>
+                                                    <a href="{% url 'project:projects_detail' id=pro.id %}">{{ pro.title }}</a>
                                                 </h3>
                                                 <p>
                                                 <div style="float:left;"><i class="glyphicon glyphicon-screenshot"
@@ -417,7 +422,7 @@
                                             <img alt="300x200" src="{{ MEDIA_URL }}{{ pro.image }}"/>
                                             <div class="caption">
                                                 <h3 class="break">
-                                                    <a href="project.html">{{ pro.title }}</a>
+                                                    <a href="{% url 'project:projects_detail' id=pro.id %}">{{ pro.title }}</a>
                                                 </h3>
                                                 <p>
                                                 <div style="float:left;"><i class="glyphicon glyphicon-screenshot"

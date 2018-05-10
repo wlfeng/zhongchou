@@ -51,3 +51,9 @@ class ProjectListView(View):
         return render(request, 'project/projects.html',
                       {'property': property, 'size': size, 'sort_type': sort_type, 'sort_state': sort_state,
                        'm_sort_type': m_sort_type, 'm_sort_state': m_sort_state, 'm_sort_money': m_sort_money})
+
+
+class ProjectDetailView(View):
+    def get(self, request, id):
+        project = ProjectListModels.objects.get(id=id)
+        return render(request, 'project/project.html', {'project': project})
