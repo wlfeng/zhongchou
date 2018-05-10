@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block titlestyle %}
+    <style>
+        #footer {
+            padding: 15px 0;
+            background: #fff;
+            border-top: 1px solid #ddd;
+            text-align: center;
+        }
+
+        #typeList li a:hover {
+            color: #f00
+        }
+
+        /* 鼠标经过悬停字体颜色 */
+        #typeList li a {
+            color: #000000;
+            text-decoration: none;
+        }
+
+        #topcontrol {
+            color: #fff;
+            z-index: 99;
+            width: 30px;
+            height: 30px;
+            font-size: 20px;
+            background: #222;
+            position: relative;
+            right: 14px !important;
+            bottom: 11px !important;
+            border-radius: 3px !important;
+        }
+
+        #topcontrol:after {
+            /*top: -2px;*/
+            left: 8.5px;
+            content: "\f106";
+            position: absolute;
+            text-align: center;
+            font-family: FontAwesome;
+        }
+
+        #topcontrol:hover {
+            color: #fff;
+            background: #18ba9b;
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .label-type, .label-status, .label-order {
+            background-color: #fff;
+            color: #f60;
+            padding: 5px;
+            border: 1px #f60 solid;
+        }
+
+        #typeList :not(:first-child) {
+            margin-top: 20px;
+        }
+
+        .label-text {
+            margin: 0 10px;
+        }
+
+        .panel {
+            border-radius: 0;
+        }
+
+        h3.break {
+            font-size: 16px;
+            display: block;
+            white-space: nowrap;
+            word-wrap: normal;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        h3.break > a {
+            text-decoration: none;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+    <div class="container theme-showcase" role="main">
+
+        <div class="container">
+            <div class="row clearfix">
+                <div class="col-md-12 column">
+                    <nav class="navbar navbar-default" role="navigation">
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li>
+                                    <a rel="nofollow" href="{% url 'index:index' %}"><i
+                                            class="glyphicon glyphicon-home"></i>
+                                        众筹首页</a>
+                                </li>
+                                <li class="active">
+                                    <a rel="nofollow" href="{% url 'project:projects_list' %}"><i
+                                            class="glyphicon glyphicon-th-large"></i>
+                                        项目总览</a>
+                                </li>
+                                <li>
+                                    <a rel="nofollow" href="../../static/start.html"><i
+                                            class="glyphicon glyphicon-edit"></i> 发起众筹</a>
+                                </li>
+                                <li>
+                                    <a rel="nofollow" href="../../static/minecrowdfunding.html"><i
+                                            class="glyphicon glyphicon-user"></i> 我的众筹</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row clearfix">
+                <div class="col-md-12 column">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <ul id="typeList" style="list-style: none;">
+                                <li>
+                                    分类：<a class="label-type "
+                                        {% ifequal sort_type '' %}
+                                          class="actvie label-type"
+                                          style="color: #ff0000"
+                                        {% endifequal %}
+                                          href="?sort_type=&sort_state={{ m_sort_state }}&sort_money={{ m_sort_money }}">全部</a>
+                                    <a class="label-text"
+                                       {% ifequal sort_type 'kj' %}actvie{% endifequal %}
+                                       href="?sort_type=kj&sort_state={{ m_sort_state }}&sort_money={{ m_sort_money }}">科技</a>
+                                    <a class="label-text {% ifequal sort_type 'gy' %}actvie{% endifequal %}"
+                                       href="?sort_type=gy&sort_state={{ m_sort_state }}&sort_money={{ m_sort_money }}">公益</a>
+                                    <a class="label-text {% ifequal sort_type 'ny' %}actvie{% endifequal %}"
+                                       href="?sort_type=ny&sort_state={{ m_sort_state }}&sort_money={{ m_sort_money }}">农业</a>
+                                    <a class="label-text {% ifequal sort_type 'wh' %}actvie{% endifequal %}"
+                                       href="?sort_type=wh&sort_state={{ m_sort_state }}&sort_money={{ m_sort_money }}">文化</a>
+                                </li>
+                                <li>
+                                    状态：<a class="label-status actvie"
+                                          href="?sort_type={{ m_sort_type }}&sort_state=">全部</a>
+                                    <a class="label-text"
+                                       href="?sort_type={{ m_sort_type }}&sort_state=wzc&sort_money={{ m_sort_money }}">即将开始</a>
+                                    <a class="label-text"
+                                       href="?sort_type={{ m_sort_type }}&sort_state=zcz&sort_money={{ m_sort_money }}">众筹中</a>
+                                    <a class="label-text"
+                                       href="?sort_type={{ m_sort_type }}&sort_state=yzc&sort_money={{ m_sort_money }}">众筹成功</a>
+                                </li>
+                                <li>
+                                    排序：
+                                    <a class="label-order actvie"
+                                       href="?sort_type={{ m_sort_type }}&sort_state={{ m_sort_state }}&sort_money=">综合排序</a>
+                                    <a class="label-text"
+                                       href="?sort_type={{ m_sort_type }}&sort_state={{ m_sort_state }}&sort_money=start_time">最新上线</a>
+                                    <a class="label-text"
+                                       href="?sort_type={{ m_sort_type }}&sort_state={{ m_sort_state }}&sort_money=target_money">金额最多</a>
+                                    <a class="label-text"
+                                       href="?sort_type={{ m_sort_type }}&sort_state={{ m_sort_state }}&sort_money=peo_num">支持最多</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="panel-footer" style="height:50px;padding:0;">
+                            <div style="float:left;padding:15px;">
+                                共{{ size }}个众筹项目
+                            </div>
+                            <div style="float:right;">
+                                <form class="navbar-form navbar-left" role="search">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="请输入搜索内容">
+                                    </div>
+                                    <button type="submit" class="btn btn-default"><i
+                                            class="glyphicon glyphicon-search"></i> 搜索
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% block inside_body %}
+        {% endblock %}
+
+
+    </div> <!-- /container -->
+{% endblock %}
+{% block script %}
+    <script src="../../static/jquery/jquery-2.1.1.min.js"></script>
+    <script src="../../static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../static/script/docs.min.js"></script>
+    <script src="../../static/script/back-to-top.js"></script>
+    <script>
+        $('#myTab a').click(function (e) {
+            e.preventDefault()
+            $(this).tab('show')
+        })
+    </script>
+{% endblock %}
