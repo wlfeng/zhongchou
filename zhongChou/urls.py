@@ -20,8 +20,8 @@ from zhongChou.settings import MEDIA_ROOT
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^user/', include('user.urls', namespace='user')),
-    url(r'^', include('home.urls', namespace='index')),
-    url(r'^project/', include('project.urls', namespace='project')),
+    url(r'^user/', include('apps.user.urls', namespace='user')),
+    url(r'^', include('apps.home.urls', namespace='index')),
+    url(r'^project/', include('apps.project.urls', namespace='project')),
     url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
 ]
