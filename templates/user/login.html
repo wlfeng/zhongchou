@@ -54,9 +54,19 @@
                     xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
                 },
                 success: function (data) {
-                    if (data.msg == '') {
-                        alert('null')
-                    } else {
+                    if (data.sign == 0) {
+                        if (data.msg == 'member') {
+                            if (data.url) {
+                                window.location.href = data.url;
+                            } else {
+                                window.location.href = "{% url 'index:index' %}";
+                            }
+                        }
+                        else {
+                            {#                            window.location.href = "{% url 'admin' %}";#}
+                        }
+                    }
+                    else {
                         alert(data.msg)
                     }
 

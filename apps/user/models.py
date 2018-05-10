@@ -6,13 +6,11 @@ from django.db import models
 
 
 class UserModels(AbstractUser):
-    user_name = models.CharField(max_length=20, verbose_name='用户名', unique=True)
-    user_pwd = models.CharField(max_length=50, verbose_name='密码')
-    user_type = models.CharField(max_length=10, choices=(('member', '会员'), ('user', '管理')), default='member')
+    user_type = models.CharField(max_length=10, choices=(('gr', '个人'), ('qy', '企业')), default='gr')
 
     class Meta:
         db_table = 'user'
         verbose_name_plural = verbose_name = '用户信息'
 
     def __str__(self):
-        return self.user_name
+        return self.username

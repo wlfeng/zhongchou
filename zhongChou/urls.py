@@ -19,7 +19,7 @@ from django.views.static import serve
 from zhongChou.settings import MEDIA_ROOT
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', include(admin.site.urls), name='admin'),
     url(r'^user/', include('apps.user.urls', namespace='user')),
     url(r'^', include('apps.home.urls', namespace='index')),
     url(r'^project/', include('apps.project.urls', namespace='project')),
