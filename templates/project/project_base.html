@@ -103,12 +103,12 @@
                                         项目总览</a>
                                 </li>
                                 <li>
-                                    <a rel="nofollow" href="../../static/start.html"><i
-                                            class="glyphicon glyphicon-edit"></i> 发起众筹</a>
+                                    <a rel="nofollow" href="{% static 'start.html' %}"><i
+                                            class=" glyphicon glyphicon-edit"></i> 发起众筹</a>
                                 </li>
                                 <li>
-                                    <a rel="nofollow" href="../../static/minecrowdfunding.html"><i
-                                            class="glyphicon glyphicon-user"></i> 我的众筹</a>
+                                    <a rel="nofollow" href="{% static 'minecrowdfunding.html' %}"><i
+                                            class=" glyphicon glyphicon-user"></i> 我的众筹</a>
                                 </li>
                             </ul>
                         </div>
@@ -124,42 +124,98 @@
                         <div class="panel-body">
                             <ul id="typeList" style="list-style: none;">
                                 <li>
-                                    分类：<a class="label-type "
-                                        {% ifequal sort_type '' %}
-                                          class="actvie label-type"
-                                          style="color: #ff0000"
-                                        {% endifequal %}
-                                          href="?sort_type=&sort_state={{ m_sort_state }}&sort_money={{ m_sort_money }}">全部</a>
-                                    <a class="label-text"
-                                       {% ifequal sort_type 'kj' %}actvie{% endifequal %}
-                                       href="?sort_type=kj&sort_state={{ m_sort_state }}&sort_money={{ m_sort_money }}">科技</a>
-                                    <a class="label-text {% ifequal sort_type 'gy' %}actvie{% endifequal %}"
-                                       href="?sort_type=gy&sort_state={{ m_sort_state }}&sort_money={{ m_sort_money }}">公益</a>
-                                    <a class="label-text {% ifequal sort_type 'ny' %}actvie{% endifequal %}"
-                                       href="?sort_type=ny&sort_state={{ m_sort_state }}&sort_money={{ m_sort_money }}">农业</a>
-                                    <a class="label-text {% ifequal sort_type 'wh' %}actvie{% endifequal %}"
-                                       href="?sort_type=wh&sort_state={{ m_sort_state }}&sort_money={{ m_sort_money }}">文化</a>
+                                    分类：
+
+
+                                    <a
+                                            {% if m_sort_type == '' %}
+                                                class="actvie"
+                                                style="color: #ff0000"
+                                            {% endif %}
+                                                href="?sort_type=&sort_state={{ m_sort_state }}&sort_money={{ m_sort_money }}">全部</a>
+                                    <a
+                                            {% if m_sort_type == 'kj' %}
+                                                class="actvie "
+                                                style="color: #ff0000"
+                                            {% endif %}
+                                                href="?sort_type=kj&sort_state={{ m_sort_state }}&sort_money={{ m_sort_money }}">科技</a>
+                                    <a
+                                            {% if m_sort_type == 'gy' %}
+                                                class="actvie"
+                                                style="color: #ff0000"
+                                            {% endif %}
+                                                href="?sort_type=gy&sort_state={{ m_sort_state }}&sort_money={{ m_sort_money }}">公益</a>
+                                    <a
+                                            {% if m_sort_type == 'ny' %}
+                                                class="actvie"
+                                                style="color: #ff0000"
+                                            {% endif %}
+                                                href="?sort_type=ny&sort_state={{ m_sort_state }}&sort_money={{ m_sort_money }}">农业</a>
+                                    <a
+                                            {% if m_sort_type == 'wh' %}
+                                                class="actvie "
+                                                style="color: #ff0000"
+                                            {% endif %}
+                                                href="?sort_type=wh&sort_state={{ m_sort_state }}&sort_money={{ m_sort_money }}">文化</a>
                                 </li>
                                 <li>
-                                    状态：<a class="label-status actvie"
-                                          href="?sort_type={{ m_sort_type }}&sort_state=">全部</a>
-                                    <a class="label-text"
-                                       href="?sort_type={{ m_sort_type }}&sort_state=wzc&sort_money={{ m_sort_money }}">即将开始</a>
-                                    <a class="label-text"
-                                       href="?sort_type={{ m_sort_type }}&sort_state=zcz&sort_money={{ m_sort_money }}">众筹中</a>
-                                    <a class="label-text"
-                                       href="?sort_type={{ m_sort_type }}&sort_state=yzc&sort_money={{ m_sort_money }}">众筹成功</a>
+                                    状态：
+                                    <a
+                                            {% if m_sort_state == '' %}
+                                                class="actvie"
+                                                style="color: #ff0000"
+                                            {% endif %}
+
+                                                href="?sort_type={{ m_sort_type }}&sort_state=&sort_money={{ m_sort_money }}">全部</a>
+                                    <a
+                                            {% if m_sort_state == 'wzc' %}
+                                                class="actvie"
+                                                style="color: #ff0000"
+                                            {% endif %}
+
+                                                href="?sort_type={{ m_sort_type }}&sort_state=wzc&sort_money={{ m_sort_money }}">即将开始</a>
+                                    <a
+                                            {% if m_sort_state == 'zcz' %}
+                                                class="actvie"
+                                                style="color: #ff0000"
+                                            {% endif %}
+
+                                                href="?sort_type={{ m_sort_type }}&sort_state=zcz&sort_money={{ m_sort_money }}">众筹中</a>
+                                    <a
+                                            {% if m_sort_state == 'yzc' %}
+                                                class="actvie"
+                                                style="color: #ff0000"
+                                            {% endif %}
+
+                                                href="?sort_type={{ m_sort_type }}&sort_state=yzc&sort_money={{ m_sort_money }}">众筹成功</a>
                                 </li>
                                 <li>
                                     排序：
-                                    <a class="label-order actvie"
-                                       href="?sort_type={{ m_sort_type }}&sort_state={{ m_sort_state }}&sort_money=">综合排序</a>
-                                    <a class="label-text"
-                                       href="?sort_type={{ m_sort_type }}&sort_state={{ m_sort_state }}&sort_money=start_time">最新上线</a>
-                                    <a class="label-text"
-                                       href="?sort_type={{ m_sort_type }}&sort_state={{ m_sort_state }}&sort_money=target_money">金额最多</a>
-                                    <a class="label-text"
-                                       href="?sort_type={{ m_sort_type }}&sort_state={{ m_sort_state }}&sort_money=peo_num">支持最多</a>
+                                    <a
+                                            {% if m_sort_money == '' %}
+                                                class="actvie"
+                                                style="color: #ff0000"
+                                            {% endif %}
+                                                href="?sort_type={{ m_sort_type }}&sort_state={{ m_sort_state }}&sort_money=">综合排序</a>
+                                    <a
+
+                                            {% if m_sort_money == 'start_time' %}
+                                                class="actvie"
+                                                style="color: #ff0000"
+                                            {% endif %}
+                                                href="?sort_type={{ m_sort_type }}&sort_state={{ m_sort_state }}&sort_money=start_time">最新上线</a>
+                                    <a
+                                            {% if m_sort_money == 'target_money' %}
+                                                class="actvie"
+                                                style="color: #ff0000"
+                                            {% endif %}
+                                                href="?sort_type={{ m_sort_type }}&sort_state={{ m_sort_state }}&sort_money=target_money">金额最多</a>
+                                    <a
+                                            {% if m_sort_money == 'peo_num' %}
+                                                class="actvie"
+                                                style="color: #ff0000"
+                                            {% endif %}
+                                                href="?sort_type={{ m_sort_type }}&sort_state={{ m_sort_state }}&sort_money=peo_num">支持最多</a>
                                 </li>
                             </ul>
                         </div>
@@ -168,13 +224,15 @@
                                 共{{ size }}个众筹项目
                             </div>
                             <div style="float:right;">
-                                <form class="navbar-form navbar-left" role="search">
+                                <form class="navbar-form navbar-left" role="search"
+                                      action="{% url 'project:projects_list' %}" method="get">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="请输入搜索内容">
+                                        <input type="text" class="form-control" name="val" placeholder="请输入搜索内容">
                                     </div>
                                     <button type="submit" class="btn btn-default"><i
                                             class="glyphicon glyphicon-search"></i> 搜索
                                     </button>
+                                    {% csrf_token %}
                                 </form>
                             </div>
                         </div>
@@ -190,10 +248,10 @@
     </div> <!-- /container -->
 {% endblock %}
 {% block script %}
-    <script src="../../static/jquery/jquery-2.1.1.min.js"></script>
-    <script src="../../static/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../../static/script/docs.min.js"></script>
-    <script src="../../static/script/back-to-top.js"></script>
+    <script src="{% static 'jquery/jquery-2.1.1.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'script/docs.min.js' %}"></script>
+    <script src="{% static 'script/back-to-top.js' %}"></script>
     <script>
         $('#myTab a').click(function (e) {
             e.preventDefault()

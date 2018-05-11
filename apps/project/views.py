@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render
 
 # Create your views here.
@@ -19,10 +20,10 @@ class ProjectListView(View):
         sort_type = request.GET.get('sort_type', 'null')
         sort_state = request.GET.get('sort_state', 'null')
         sort_money = request.GET.get('sort_money', 'null')
+
         if sort_type == 'null':
             sort_type = m_sort_type
         else:
-            m_sort_type = sort_type
             if sort_type:
                 property = property.filter(type=sort_type)
 
@@ -39,18 +40,34 @@ class ProjectListView(View):
             m_sort_money = sort_money
             if sort_money:
                 property = property.order_by(sort_money)
-        try:
-            page = request.GET.get('page', 1)
-        except:
-            page = 1
 
-        p = Paginator(property, 12, request=request)
-
-        property = p.page(page)
-
+        property = pager(request, property)
+        print(m_sort_money)
         return render(request, 'project/projects.html',
                       {'property': property, 'size': size, 'sort_type': sort_type, 'sort_state': sort_state,
-                       'm_sort_type': m_sort_type, 'm_sort_state': m_sort_state, 'm_sort_money': m_sort_money})
+                       'm_sort_type': m_sort_type, 'm_sort_state': m_sort_state, 'm_sort_money': m_sort_money
+                       })
+
+    def post(self, request):
+        text = request.POST.get('val')
+
+        property = ProjectListModels.objects.filter(Q(title__contains=text) | Q(introduce__contains=text))
+        property = pager(request, property)
+        return render(request, 'project/projects.html',
+                      {'property': property, 'm_sort_type': m_sort_type, 'm_sort_state': m_sort_state,
+                       'm_sort_money': m_sort_money})
+
+
+def pager(request, property):
+    try:
+        page = request.GET.get('page', 1)
+    except:
+        page = 1
+
+    p = Paginator(property, 12, request=request)
+
+    property = p.page(page)
+    return property
 
 
 class ProjectDetailView(View):

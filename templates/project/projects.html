@@ -12,7 +12,7 @@
                                 <img alt="300x200" src="{{ MEDIA_URL }}{{ pro.image }}"/>
                                 <div class="caption">
                                     <h3 class="break">
-                                        <a href="project.html">{{ pro.title }}</a>
+                                        <a href="{% url 'project:projects_detail' id=pro.id %}">{{ pro.title }}</a>
                                     </h3>
                                     <p>
                                     <div style="float:left;"><i class="glyphicon glyphicon-screenshot" title="目标金额"></i>
@@ -25,9 +25,10 @@
                                     <br>
                                     <div class="progress" style="margin-bottom: 4px;">
                                         <div class="progress-bar progress-bar-success" role="progressbar"
-                                             aria-valuenow="{% widthratio pro.now_money pro.target_money 100%}"
-                                             aria-valuemin="0" aria-valuemax="100" style="width: {% widthratio pro.now_money pro.target_money 100%}%">
-                                            <span>{% widthratio pro.now_money pro.target_money 100%}% </span>
+                                             aria-valuenow="{% widthratio pro.now_money pro.target_money 100 %}"
+                                             aria-valuemin="0" aria-valuemax="100"
+                                             style="width: {% widthratio pro.now_money pro.target_money 100 %}%">
+                                            <span>{% widthratio pro.now_money pro.target_money 100 %}% </span>
                                         </div>
                                     </div>
                                     <div><span style="float:right;"><i
