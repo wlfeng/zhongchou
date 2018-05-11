@@ -43,14 +43,14 @@ class RegisterView(View):
 
     def post(self, request):
         name = request.POST.get('name')
-        pwd = request.POST.get('pwd')
+        pwd = request.POST.get('pwd').encode('utf-8')
         sel = request.POST.get('sel')
         email = request.POST.get('email')
         print(pwd, type(pwd))
         if name and pwd and sel and email:
             user = UserModels()
             user.username = name
-            user.password = pwd
+            user.password = pwd_encryption(pwd)
             user.email = email
             user.user_type = sel
             user.save()

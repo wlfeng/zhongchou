@@ -14,3 +14,17 @@ class UserModels(AbstractUser):
 
     def __str__(self):
         return self.username
+
+
+class AddressModels(models.Model):
+    user = models.ForeignKey(UserModels, verbose_name='用户')
+    name = models.CharField(verbose_name='姓名', max_length=20)
+    phone = models.CharField(verbose_name='电话', max_length=11)
+    address = models.CharField(verbose_name='地址', max_length=100)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = 'address'
+        verbose_name_plural = verbose_name = '用户地址'
