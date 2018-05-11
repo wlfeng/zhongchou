@@ -24,6 +24,7 @@ class ProjectListView(View):
         if sort_type == 'null':
             sort_type = m_sort_type
         else:
+            m_sort_type = property
             if sort_type:
                 property = property.filter(type=sort_type)
 
@@ -31,8 +32,8 @@ class ProjectListView(View):
             sort_state = m_sort_state
         else:
             m_sort_state = sort_state
-            if m_sort_state:
-                property = property.filter(state=m_sort_state)
+            if sort_state:
+                property = property.filter(state=sort_state)
 
         if sort_money == 'null':
             sort_money = m_sort_money
@@ -42,9 +43,9 @@ class ProjectListView(View):
                 property = property.order_by(sort_money)
 
         property = pager(request, property)
-        print(m_sort_money)
         return render(request, 'project/projects.html',
                       {'property': property, 'size': size, 'sort_type': sort_type, 'sort_state': sort_state,
+                       'sort_money': sort_money,
                        'm_sort_type': m_sort_type, 'm_sort_state': m_sort_state, 'm_sort_money': m_sort_money
                        })
 
@@ -54,8 +55,7 @@ class ProjectListView(View):
         property = ProjectListModels.objects.filter(Q(title__contains=text) | Q(introduce__contains=text))
         property = pager(request, property)
         return render(request, 'project/projects.html',
-                      {'property': property, 'm_sort_type': m_sort_type, 'm_sort_state': m_sort_state,
-                       'm_sort_money': m_sort_money})
+                      {'property': property})
 
 
 def pager(request, property):
@@ -73,4 +73,6 @@ def pager(request, property):
 class ProjectDetailView(View):
     def get(self, request, id):
         project = ProjectListModels.objects.get(id=id)
-        return render(request, 'project/project.html', {'project': project})
+        money = project.moneymodels_set.all()
+        print(type(money[0].is_quantity))
+        return render(request, 'project/project.html', {'project': project, 'money': money})

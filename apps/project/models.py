@@ -44,6 +44,8 @@ class MoneyModels(models.Model):
     money = models.IntegerField(verbose_name='价格', default=0)
     people_num = models.IntegerField(default=0, verbose_name='已购买数量')
     num = models.IntegerField(default=0, verbose_name='最大购买数量')
+    is_quantity = models.CharField(max_length=5, choices=(('0', '不限量'), ('1', '限量')), default='0', verbose_name='是否限量')
+    number = models.IntegerField(verbose_name='商品数量', default=0)
 
     def __str__(self):
         msg = self.project.title + str(self.money)

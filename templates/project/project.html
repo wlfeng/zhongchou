@@ -134,7 +134,7 @@
                                     </div>
                                     <p>剩余 15 天</p>
                                     <div>
-                                        <p><span>已有{{ project.peo_num }}人支持该项目</p>
+                                        <p><span>已有{{ project.peo_num }}人支持该项目</span></p>
                                         <button type="button" class="btn  btn-warning btn-lg btn-block"
                                                 data-toggle="modal"
                                                 data-target="#myModal">立即支持
@@ -148,21 +148,24 @@
                                     <div class="container-fluid">
                                         <div class="row clearfix">
                                             <div class="col-md-3 column" style="padding:0;">
-                                                <img alt="140x140" src="../../static/img/services-box2.jpg"
+                                                <img alt="140x140" src="{{ MEDIA_URL }}{{ project.company.image }}"
                                                      data-holder-rendered="true" style="width: 80px; height: 80px;">
                                             </div>
                                             <div class="col-md-9 column">
                                                 <div class="">
                                                     <h4>
-                                                        <b>福建省南安厨卫</b> <span style="float:right;font-size:12px;"
-                                                                             class="label label-success">已认证</span>
+                                                        <b>{{ project.company.name }}</b>
+                                                        <span
+                                                                style="float:right;font-size:12px;"
+                                                                class="label label-success">
+                                                            {{ project.company.get_aut_display }}
+                                                        </span>
                                                     </h4>
                                                     <p style="font-size:12px">
-                                                        酷驰是一家年轻的厨卫科技公司，我们有一支朝气蓬勃，有激情、有想法、敢实践的团队。
-
+                                                        {{ project.company.introduce }}
                                                     </p>
                                                     <p style="font-size:12px">
-                                                        客服电话:0595-86218855
+                                                        客服电话:{{ project.company.phone }}
                                                     </p>
                                                 </div>
                                             </div>
@@ -170,39 +173,50 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel panel-default" style="border-radius: 0px;">
-                                <div class="panel-heading">
-                                    <h3>
-                                        ￥1.00 <span style="float:right;font-size:12px;">无限额，447位支持者</span>
-                                    </h3>
-                                </div>
-                                <div class="panel-body">
-                                    <p>配送费用：包邮</p>
-                                    <p>预计发放时间：项目筹款成功后的50天内</p>
-                                    <button type="button" class="btn  btn-warning btn-lg"
-                                            onclick="window.location.href='../../static/pay-step-1.html'">支持
-                                    </button>
-                                    <br><br>
-                                    <p>感谢您的支持，在众筹开始后，您将以79元的优惠价格获得“遇见彩虹?”智能插座一件（参考价208元）。</p>
-                                </div>
-                            </div>
+                            {% for money_set in money %}
+                                <div class="panel panel-default" style="border-radius: 0px;">
 
-                            <div class="panel panel-default" style="border-radius: 0px;">
-                                <div class="panel-heading">
-                                    <h3>
-                                        ￥149.00 <span style="float:right;font-size:12px;">限额2000位，剩余1966位</span>
-                                    </h3>
+                                    <div class="panel-heading">
+                                        <h3>
+                                            ￥{{ money_set.money }} <span
+                                                style="float:right;font-size:12px;">
+                                            {% if money_set.is_quantity == '0' %}
+                                                无限额
+                                            {% else %}
+                                                限额{{ money_set.num }}位
+                                            {% endif %}，{{ money_set.people_num }}位支持者</span>
+                                        </h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <p>配送费用：包邮</p>
+                                        <p>预计发放时间：项目筹款成功后的50天内</p>
+                                        <button type="button" class="btn  btn-warning btn-lg"
+                                                onclick="window.location.href='../../static/pay-step-1.html'">支持
+                                        </button>
+                                        <br><br>
+                                        <p>
+                                            感谢您的支持，在众筹开始后，您将以{{ money_set.money }}元的优惠价格获得{{ project.title }}一件（参考价208元）。</p>
+                                    </div>
                                 </div>
-                                <div class="panel-body">
-                                    <p>配送费用：包邮</p>
-                                    <p>预计发放时间：项目筹款成功后的50天内</p>
-                                    <button type="button" class="btn  btn-warning btn-lg"
-                                            onclick="window.location.href='../../static/pay-step-1.html'">支持
-                                    </button>
-                                    <br><br>
-                                    <p>感谢您的支持，在众筹开始后，您将以79元的优惠价格获得“遇见彩虹?”智能插座一件（参考价208元）。</p>
-                                </div>
-                            </div>
+                            {% endfor %}
+
+
+                            {#                            <div class="panel panel-default" style="border-radius: 0px;">#}
+                            {#                                <div class="panel-heading">#}
+                            {#                                    <h3>#}
+                            {#                                        ￥149.00 <span style="float:right;font-size:12px;">限额2000位，剩余1966位</span>#}
+                            {#                                    </h3>#}
+                            {#                                </div>#}
+                            {#                                <div class="panel-body">#}
+                            {#                                    <p>配送费用：包邮</p>#}
+                            {#                                    <p>预计发放时间：项目筹款成功后的50天内</p>#}
+                            {#                                    <button type="button" class="btn  btn-warning btn-lg"#}
+                            {#                                            onclick="window.location.href='../../static/pay-step-1.html'">支持#}
+                            {#                                    </button>#}
+                            {#                                    <br><br>#}
+                            {#                                    <p>感谢您的支持，在众筹开始后，您将以79元的优惠价格获得“遇见彩虹?”智能插座一件（参考价208元）。</p>#}
+                            {#                                </div>#}
+                            {#                            </div>#}
                             <div class=" panel panel-default" style="border-radius: 0px;">
                                 <div class="panel-heading">
                                     <h3>

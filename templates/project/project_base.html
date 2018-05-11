@@ -128,31 +128,31 @@
 
 
                                     <a
-                                            {% if m_sort_type == '' %}
+                                            {% if sort_type == '' %}
                                                 class="actvie"
                                                 style="color: #ff0000"
                                             {% endif %}
                                                 href="?sort_type=&sort_state={{ m_sort_state }}&sort_money={{ m_sort_money }}">全部</a>
                                     <a
-                                            {% if m_sort_type == 'kj' %}
+                                            {% if sort_type == 'kj' %}
                                                 class="actvie "
                                                 style="color: #ff0000"
                                             {% endif %}
                                                 href="?sort_type=kj&sort_state={{ m_sort_state }}&sort_money={{ m_sort_money }}">科技</a>
                                     <a
-                                            {% if m_sort_type == 'gy' %}
+                                            {% if sort_type == 'gy' %}
                                                 class="actvie"
                                                 style="color: #ff0000"
                                             {% endif %}
                                                 href="?sort_type=gy&sort_state={{ m_sort_state }}&sort_money={{ m_sort_money }}">公益</a>
                                     <a
-                                            {% if m_sort_type == 'ny' %}
+                                            {% if sort_type == 'ny' %}
                                                 class="actvie"
                                                 style="color: #ff0000"
                                             {% endif %}
                                                 href="?sort_type=ny&sort_state={{ m_sort_state }}&sort_money={{ m_sort_money }}">农业</a>
                                     <a
-                                            {% if m_sort_type == 'wh' %}
+                                            {% if sort_type == 'wh' %}
                                                 class="actvie "
                                                 style="color: #ff0000"
                                             {% endif %}
@@ -161,28 +161,28 @@
                                 <li>
                                     状态：
                                     <a
-                                            {% if m_sort_state == '' %}
+                                            {% if sort_state == '' %}
                                                 class="actvie"
                                                 style="color: #ff0000"
                                             {% endif %}
 
                                                 href="?sort_type={{ m_sort_type }}&sort_state=&sort_money={{ m_sort_money }}">全部</a>
                                     <a
-                                            {% if m_sort_state == 'wzc' %}
+                                            {% if sort_state == 'wzc' %}
                                                 class="actvie"
                                                 style="color: #ff0000"
                                             {% endif %}
 
                                                 href="?sort_type={{ m_sort_type }}&sort_state=wzc&sort_money={{ m_sort_money }}">即将开始</a>
                                     <a
-                                            {% if m_sort_state == 'zcz' %}
+                                            {% if sort_state == 'zcz' %}
                                                 class="actvie"
                                                 style="color: #ff0000"
                                             {% endif %}
 
                                                 href="?sort_type={{ m_sort_type }}&sort_state=zcz&sort_money={{ m_sort_money }}">众筹中</a>
                                     <a
-                                            {% if m_sort_state == 'yzc' %}
+                                            {% if sort_state == 'yzc' %}
                                                 class="actvie"
                                                 style="color: #ff0000"
                                             {% endif %}
@@ -192,26 +192,26 @@
                                 <li>
                                     排序：
                                     <a
-                                            {% if m_sort_money == '' %}
+                                            {% if sort_money == '' %}
                                                 class="actvie"
                                                 style="color: #ff0000"
                                             {% endif %}
                                                 href="?sort_type={{ m_sort_type }}&sort_state={{ m_sort_state }}&sort_money=">综合排序</a>
                                     <a
 
-                                            {% if m_sort_money == 'start_time' %}
+                                            {% if sort_money == 'start_time' %}
                                                 class="actvie"
                                                 style="color: #ff0000"
                                             {% endif %}
                                                 href="?sort_type={{ m_sort_type }}&sort_state={{ m_sort_state }}&sort_money=start_time">最新上线</a>
                                     <a
-                                            {% if m_sort_money == 'target_money' %}
+                                            {% if sort_money == 'target_money' %}
                                                 class="actvie"
                                                 style="color: #ff0000"
                                             {% endif %}
                                                 href="?sort_type={{ m_sort_type }}&sort_state={{ m_sort_state }}&sort_money=target_money">金额最多</a>
                                     <a
-                                            {% if m_sort_money == 'peo_num' %}
+                                            {% if sort_money == 'peo_num' %}
                                                 class="actvie"
                                                 style="color: #ff0000"
                                             {% endif %}
