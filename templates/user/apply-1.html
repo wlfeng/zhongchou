@@ -1,0 +1,39 @@
+{% extends 'user/apply_base.html' %}
+{% load staticfiles %}
+{% block titlestyle %}
+    <style>
+        #footer {
+            padding: 15px 0;
+            background: #fff;
+            border-top: 1px solid #ddd;
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+{% block ine_body %}
+    <form role="form" style="margin-top:20px;">
+        <div class="form-group">
+            <label for="exampleInputEmail1">手执身份证照片</label>
+            <input type="file" class="form-control">
+            <br>
+            <img src="img/pic.jpg">
+        </div>
+        <button type="button" onclick="window.location.href='{% url 'user:userapply_one' %}'" class="btn btn-default">
+            上一步
+        </button>
+        <button type="button" onclick="window.location.href='{% url 'user:userapply_three' %}'" class="btn btn-success">
+            下一步
+        </button>
+    </form>
+{% endblock %}
+{% block script %}
+    <script src="{% static 'jquery/jquery-2.1.1.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'script/docs.min.js' %}"></script>
+    <script>
+        $('#myTab a').click(function (e) {
+            e.preventDefault()
+            $(this).tab('show')
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'user/apply_base.html' %}
+{% load staticfiles %}
+{% block titlestyle %}
+    <style>
+        #footer {
+            padding: 15px 0;
+            background: #fff;
+            border-top: 1px solid #ddd;
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+{% block ine_body %}
+    <form role="form" style="margin-top:20px;">
+        <div class="form-group">
+            <label for="exampleInputEmail1">邮箱地址</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="请输入用于接收验证码的邮箱地址">
+        </div>
+        <button type="button" onclick="window.location.href='{% url 'user:userapply_two' %}'" class="btn btn-default">
+            上一步
+        </button>
+        <button type="button" id="next" class="btn btn-success">
+            下一步
+        </button>
+    </form>
+{% endblock %}
+{% block script %}
+    <script src="{% static 'jquery/jquery-2.1.1.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'script/docs.min.js' %}"></script>
+    <script>
+        $('#myTab a').click(function (e) {
+            e.preventDefault()
+            $(this).tab('show')
+        });
+    </script>
+
+
+    <script>
+        $('#next').on('click', function () {
+            var email = $("#exampleInputEmail1").val()
+
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "{% url 'user:userapply_three' %}",
+                data: {'email': email},
+                async: true,
+                beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                },
+                success: function (data) {
+                    if (data.state == '200') {
+                        window.location.href = "{% url 'user:userapply_four' %}";
+                    } else {
+                        alert(data.state)
+                        {#                        window.location.reload();//刷新当前页面.#}
+                    }
+                },
+                error: function (error) {
+                    alert('ajax 失败!')
+                }
+            });
+        });
+    </script>
+{% endblock %}

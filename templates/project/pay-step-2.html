@@ -276,6 +276,7 @@
                                                             <div class="col-sm-10">
                                                                 <input type="text" class="form-control"
                                                                        style="width:200px;"
+                                                                       id=""
                                                                        placeholder="个人">
                                                             </div>
                                                         </div>
@@ -361,6 +362,7 @@
                                                 <li style="margin-top:10px;">
                                                     <button type="button"
                                                             class="btn btn-warning btn-lg"
+                                                            id="generating_order "
                                                             onclick="window.location.href='pay-step-3.html'"><i
                                                             class="glyphicon glyphicon-credit-card"></i> 立即付款
                                                     </button>
@@ -445,4 +447,36 @@
             });
         });
     </script>
+
+{#    <script>#}
+    {#        $('#generating_order').on('click', function () {#}
+    {#            var optionsRadios = $("input[name='optionsRadios']:checked").val()#}
+    {##}
+    {#            $.ajax({#}
+    {#                cache: false,#}
+    {#                type: "POST",#}
+    {#                url: "路径",#}
+    {#                data: {封装post请求的参数 键值对模式},#}
+    {#                async: true,#}
+    {#                beforeSend: function (xhr, settings) {#}
+    {#                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");#}
+    {#                },#}
+    {#                success: function (data) {#}
+    {#                    if (data.status == 'fail') {#}
+    {#                        if (data.msg == '用户未登录') {#}
+    {#                            window.location.href = "{% url 'login' %}";#}
+    {#                        } else {#}
+    {#                            alert(data.msg)#}
+    {#                        }#}
+    {#                    } else if (data.status == 'success') {#}
+    {#                        alert('评论成功！')#}
+    {#                        window.location.reload();//刷新当前页面.#}
+    {#                    }#}
+    {#                },#}
+    {#                error: function (error) {#}
+    {#                    alert('ajax 失败!')#}
+    {#                }#}
+    {#            });#}
+    {#        });#}
+    {#    </script>#}
 {% endblock %}

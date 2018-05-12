@@ -30,6 +30,8 @@ class ProjectListModels(models.Model):
     target_money = models.IntegerField(verbose_name='目标金额', default=0)
     now_money = models.IntegerField(verbose_name='当前金额', default=0)
     peo_num = models.IntegerField(verbose_name='支持人数', default=0)
+    con_image = models.ImageField(upload_to="con_image/%Y/%m", verbose_name=u"Logo", max_length=100)
+    flow_num = models.IntegerField(default=0, max_length=255, verbose_name='关注数量')
 
     def __str__(self):
         return self.title

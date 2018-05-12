@@ -23,5 +23,6 @@ urlpatterns = [
     url(r'^user/', include('apps.user.urls', namespace='user')),
     url(r'^', include('apps.home.urls', namespace='index')),
     url(r'^project/', include('apps.project.urls', namespace='project')),
+    url(r'^start_project/', include('apps.startproject.urls', namespace='start_project')),
     url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
 ]

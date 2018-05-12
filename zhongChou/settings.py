@@ -39,7 +39,8 @@ INSTALLED_APPS = (
     'apps.user',
     'apps.home',
     'apps.project',
-    'pure_pagination'
+    'pure_pagination',
+    'apps.startproject'
 )
 
 MIDDLEWARE_CLASSES = (

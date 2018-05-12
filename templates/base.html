@@ -24,8 +24,24 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse" style="float:right;">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{% url 'user:login' %}">登录</a></li>
-                        <li><a href="{% url 'user:register' %}">注册</a></li>
+                        {% if user == 'None' %}
+                            <li><a href="{% url 'user:login' %}">登录</a></li>
+                            <li><a href="{% url 'user:register' %}">注册</a></li>
+                        {% else %}
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
+                                        class="glyphicon glyphicon-user"></i> {{ user.username }}<span
+                                        class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{% url 'user:user_detail' %}"><i class="glyphicon glyphicon-scale"></i>
+                                        会员中心</a></li>
+                                    <li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="index.html"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+                                </ul>
+                            </li>
+                        {% endif %}
+
                     </ul>
                 </div>
             </div>

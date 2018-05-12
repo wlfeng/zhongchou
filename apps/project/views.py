@@ -9,15 +9,32 @@ from apps.user.models import UserModels, AddressModels
 from utils.islogin import login_required
 from .models import ProjectListModels, MoneyModels
 from django.core.urlresolvers import reverse
+from apps.user.models import FollowModels
 
 m_sort_type = ''
 m_sort_state = ''
 m_sort_money = ''
 
 
+def pager(request, property):
+    try:
+        page = request.GET.get('page', 1)
+    except:
+        page = 1
+
+    p = Paginator(property, 12, request=request)
+
+    property = p.page(page)
+    return property
+
+
 class ProjectListView(View):
     def get(self, request):
         global m_sort_type, m_sort_state, m_sort_money
+        try:
+            user = UserModels.objects.get(id=request.session['user_id'])
+        except:
+            user = 'None'
         property = ProjectListModels.objects.all()
         size = property.count()
         sort_type = request.GET.get('sort_type', 'null')
@@ -50,53 +67,72 @@ class ProjectListView(View):
                       {'property': property, 'size': size, 'sort_type': sort_type, 'sort_state': sort_state,
                        'sort_money': sort_money,
                        'm_sort_type': m_sort_type, 'm_sort_state': m_sort_state, 'm_sort_money': m_sort_money
-                       })
+                          , 'user': user})
 
     def post(self, request):
         text = request.POST.get('val')
-
+        try:
+            user = UserModels.objects.get(id=request.session['user_id'])
+        except:
+            user = 'None'
         property = ProjectListModels.objects.filter(Q(title__contains=text) | Q(introduce__contains=text))
         property = pager(request, property)
         return render(request, 'project/projects.html',
-                      {'property': property})
-
-
-def pager(request, property):
-    try:
-        page = request.GET.get('page', 1)
-    except:
-        page = 1
-
-    p = Paginator(property, 12, request=request)
-
-    property = p.page(page)
-    return property
+                      {'property': property, 'user': user})
 
 
 class ProjectDetailView(View):
     def get(self, request, id):
+        try:
+            user = UserModels.objects.get(id=request.session['user_id'])
+        except:
+            user = 'None'
         project = ProjectListModels.objects.get(id=id)
         money = project.moneymodels_set.all()
-        print(type(money[0].is_quantity))
-        return render(request, 'project/project.html', {'project': project, 'money': money})
+        return render(request, 'project/project.html', {'project': project, 'money': money, 'user': user})
+
+    def post(self, request, id):
+
+        try:
+            pro = ProjectListModels.objects.get(id=id)
+            # FollowModels.objects.get(project=pro, user=UserModels.objects.get(id=request.session['user_id']))
+            fol = FollowModels()
+            fol.project = pro
+            fol.user = UserModels.objects.get(id=request.session['user_id'])
+            fol.save()
+            pro.flow_num += 1
+            pro.save()
+            return JsonResponse({'status': '200'})
+        except:
+            return JsonResponse({'status': '500'})
 
 
 class PayStepOneView(View):
     def get(self, request, mon_id):
+        try:
+            user = UserModels.objects.get(id=request.session['user_id'])
+        except:
+            user = 'None'
         money = MoneyModels.objects.get(id=mon_id)
-        return render(request, 'project/pay-step-1.html', {'money': money})
+        return render(request, 'project/pay-step-1.html', {'money': money, 'user': user})
 
 
 class PayStepTwoView(View):
     def get(self, request, mon_id):
+        try:
+            user = UserModels.objects.get(id=request.session['user_id'])
+        except:
+            user = 'None'
         address = ''
         money = MoneyModels.objects.get(id=mon_id)
         if request.session.has_key('islogin'):
             user = UserModels.objects.get(id=request.session['user_id'])
             address = user.addressmodels_set.all()
-        return render(request, 'project/pay-step-2.html', {'money': money, 'mon_id': mon_id, 'address': address})
+        return render(request, 'project/pay-step-2.html',
+                      {'money': money, 'mon_id': mon_id, 'address': address, 'user': user})
 
     def post(self, request, mon_id):
+
         phone = request.POST.get('phone')
         username = request.POST.get('username')
         p_address = request.POST.get('address')

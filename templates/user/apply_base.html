@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block body %}
+    <div class="container theme-showcase" role="main">
+        <div class="page-header">
+            <h1>实名认证 - 申请</h1>
+        </div>
+
+        <ul class="nav nav-tabs" role="tablist">
+            {% block ine_title %}
+                <li role="presentation" {% ifequal request.path '/user/userapply_one' %}class="active"{% endifequal %}>
+                    <a href="{% url 'user:userapply_one' %}"><span
+                            class="badge">1</span>
+                        基本信息</a></li>
+                <li role="presentation" {% ifequal request.path '/user/userapply_two' %}class="active"{% endifequal %}>
+                    <a href="{% url 'user:userapply_two' %}"><span class="badge">2</span> 资质文件上传</a>
+                </li>
+                <li role="presentation"
+                    {% ifequal request.path '/user/userapply_three' %}class="active"{% endifequal %}>
+                    <a href="{% url 'user:userapply_three' %}"><span class="badge">3</span> 邮箱确认</a>
+                </li>
+                <li role="presentation" {% ifequal request.path '/user/userapply_four' %}class="active"{% endifequal %}>
+                    <a href="{% url 'user:userapply_four' %}"><span class="badge">4</span> 申请确认</a>
+                </li>
+            {% endblock %}
+        </ul>
+        {% block ine_body %}
+        {% endblock %}
+{% endblock %}

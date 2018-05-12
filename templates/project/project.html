@@ -69,11 +69,11 @@
                                         众筹项目</a>
                                 </li>
                                 <li>
-                                    <a rel="nofollow" href="../../static/start.html"><i
+                                    <a rel="nofollow" href="../startproject/start.html"><i
                                             class="glyphicon glyphicon-edit"></i> 发起众筹</a>
                                 </li>
                                 <li>
-                                    <a rel="nofollow" href="../../static/minecrowdfunding.html"><i
+                                    <a rel="nofollow" href="../user/minecrowdfunding.html"><i
                                             class="glyphicon glyphicon-user"></i> 我的众筹</a>
                                 </li>
                             </ul>
@@ -95,9 +95,10 @@
                             {{ project.introduce }}
                         </div>
                         <div style="float:right;">
-                            <button type="button" class="btn btn-default"><i style="color:#f60"
-                                                                             class="glyphicon glyphicon-heart"></i> 关注
-                                111
+                            <button type="button" class="btn btn-default" id="flow"><i style="color:#f60"
+                                                                                       class="glyphicon glyphicon-heart"></i>
+                                关注
+                                {{ project.flow_num }}
                             </button>
                         </div>
                     </div>
@@ -341,6 +342,36 @@
         $(".prjtip img").css("cursor", "pointer");
         $(".prjtip img").click(function () {
             window.location.href = 'project.html';
+        });
+    </script>
+
+
+
+
+    <script>
+        $('#flow').on('click', function () {
+
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "{% url 'project:projects_detail' id=project.id%}",
+                data: {'id':{{ project.id}}},
+                async: true,
+                beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                },
+                success: function (data) {
+                    if (data.status == '200') {
+                        alert('关注成功！')
+                    } else if (data.status == 'success') {
+                        alert('关注失败！')
+                        window.location.reload();//刷新当前页面.
+                    }
+                },
+                error: function (error) {
+                    alert('ajax 失败!')
+                }
+            });
         });
     </script>
 {% endblock %}
